@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - HMS</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body class="dashboard-body">
+    <nav class="top-nav">
+      <div class="logo">
+        <i class="fa-solid fa-hospital"></i>
+        <span>Hospital Management</span>
+      </div>
+      <div class="user-profile">
+        <i class="fa-solid fa-user-circle"></i>
+        <span>Admin</span>
+        <button id="logout-btn" class="btn btn-danger">
+          <i class="fa-solid fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </nav>
+
+    <div class="main-container">
+      <aside class="left-sidebar">
+        <h3>Menu</h3>
+        <ul>
+          <li class="active">
+            <a href="#"><i class="fa-solid fa-tachometer-alt"></i> Dashboard</a>
+          </li>
+          <!-- <li>
+            <a href="#"><i class="fa-solid fa-user-plus"></i> Add Patient</a>
+          </li> -->
+          <li>
+            <a href="#"><i class="fa-solid fa-users"></i> All Patients</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-clock"></i> Waiting List</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-cog"></i> Settings</a>
+          </li>
+        </ul>
+      </aside>
+
+      <main class="main-content">
+        <section class="card" id="add-patient-section">
+          <h2><i class="fa-solid fa-user-plus"></i> Add New Patient</h2>
+          <form id="add-patient-form">
+            <div class="form-row">
+              <div class="input-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" required />
+              </div>
+              <div class="input-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="input-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" required />
+              </div>
+              <div class="input-group">
+                <label for="gender">Gender</label>
+                <select id="gender" required>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="condition">Condition</label>
+              <input type="text" id="condition" required />
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn">
+                <i class="fa-solid fa-save"></i> Save Patient
+              </button>
+              <button
+                type="button"
+                id="add-to-waiting-list-btn"
+                class="btn btn-secondary"
+              >
+                <i class="fa-solid fa-clock"></i> Add to Waiting List
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <section class="card" id="patient-controls">
+          <h2><i class="fa-solid fa-tasks"></i> Patient Controls</h2>
+
+          <div class="control-buttons">
+            <button id="delete-last-btn" class="btn btn-danger">
+              <i class="fa-solid fa-trash"></i> Delete Last Added Patient
+            </button>
+            <button id="undo-delete-btn" class="btn btn-warning" disabled>
+              <i class="fa-solid fa-undo"></i> Undo Delete
+            </button>
+          </div>
+
+          <div
+            class="sort-buttons"
+            style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 10px"
+          >
+            <button id="sort-id-btn" class="btn btn-secondary">
+              <i class="fa-solid fa-sort-numeric-down"></i> Sort by ID
+            </button>
+            <button id="sort-name-btn" class="btn btn-secondary">
+              <i class="fa-solid fa-sort-alpha-down"></i> Sort by Name
+            </button>
+            <button id="sort-age-btn" class="btn btn-secondary">
+              <i class="fa-solid fa-sort-amount-down"></i> Sort by Age
+            </button>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2><i class="fa-solid fa-users"></i> Admitted Patient List</h2>
+          <div class="search-container">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Enter search term..."
+            />
+            <select id="search-key-select">
+              <option value="id">Search by ID</option>
+              <option value="name">Search by Name</option>
+              <option value="age">Search by Age</option>
+            </select>
+            <button id="search-btn" class="btn">
+              <i class="fa-solid fa-search"></i> Search
+            </button>
+            <button id="clear-search-btn" class="btn btn-danger">
+              <i class="fa-solid fa-times"></i> Clear
+            </button>
+          </div>
+          <div class="table-container">
+            <table id="patient-table">
+              <thead>
+                <tr>
+                  <th>Patient ID</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Age</th>
+                  <th>Gender</th>
+                  <th>Condition</th>
+                </tr>
+              </thead>
+              <tbody id="patient-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>
+            <i class="fa-solid fa-hourglass-start"></i> Patient Waiting List
+          </h2>
+          <div class="table-container">
+            <table id="waiting-list-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Condition</th>
+                </tr>
+              </thead>
+              <tbody id="waiting-list-body"></tbody>
+            </table>
+          </div>
+          <button
+            id="admit-next-patient-btn"
+            class="btn"
+            style="margin-top: 15px"
+          >
+            <i class="fa-solid fa-arrow-right-to-bracket"></i> Admit Next
+            Patient from Queue
+          </button>
+        </section>
+      </main>
+    </div>
+    <script src="script.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+[
+    {
+        "id": 101,
+        "name": "John Doe",
+        "phone": "555-1234",
+        "age": 45,
+        "gender": "Male",
+        "condition": "Broken Arm"
+    },
+    {
+        "id": 102,
+        "name": "Jane Smith",
+        "phone": "555-5678",
+        "age": 32,
+        "gender": "Female",
+        "condition": "Flu Symptoms"
+    },
+    {
+        "id": 103,
+        "name": "Robert Brown",
+        "phone": "555-9012",
+        "age": 67,
+        "gender": "Male",
+        "condition": "Routine Checkup"
+    }
+]
